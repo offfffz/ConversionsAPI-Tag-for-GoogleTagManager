@@ -13,7 +13,7 @@ ___INFO___
   "id": "cvt_temp_public_id",
   "version": 1,
   "securityGroups": [],
-  "displayName": "Facebook Conversions API Tag",
+  "displayName": "Facebook Conversions API Tag - Extended",
   "brand": {
     "id": "brand_dummy",
     "displayName": "Facebook",
@@ -100,6 +100,33 @@ ___TEMPLATE_PARAMETERS___
     ],
     "simpleValueType": true,
     "help": "This field allows you to specify where your conversions occurred. Knowing where your events took place helps ensure your ads go to the right people. See \u003ca href\u003d\"https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event#action-source\"\u003ehere\u003c/a\u003e for more information."
+  },
+  {
+    "type": "GROUP",
+    "name": "customDataParameters",
+    "displayName": "Override Custom Data Parameters",
+    "groupStyle": "ZIPPY_CLOSED",
+    "subParams": [
+      {
+        "type": "SIMPLE_TABLE",
+        "name": "overrideCustomDataParameters",
+        "displayName": "",
+        "simpleTableColumns": [
+          {
+            "defaultValue": "",
+            "displayName": "Name",
+            "name": "name",
+            "type": "TEXT"
+          },
+          {
+            "defaultValue": "",
+            "displayName": "Value",
+            "name": "value",
+            "type": "TEXT"
+          }
+        ]
+      }
+    ]
   }
 ]
 
@@ -218,6 +245,12 @@ event.custom_data.num_items = eventModel['x-fb-cd-num_items'];
 event.custom_data.predicted_ltv = eventModel['x-fb-cd-predicted_ltv'];
 event.custom_data.status = eventModel['x-fb-cd-status'];
 event.custom_data.delivery_category = eventModel['x-fb-cd-delivery_category'];
+
+// Override Custom Data Parameters
+const overrideCustomDataParameters = data.overrideCustomDataParameters || [];
+overrideCustomDataParameters.forEach(customParam => {
+  event.custom_data[customParam.name] = customParam.value;
+});
 
 const eventRequest = {data: [event], partner_agent: PARTNER_AGENT};
 

@@ -1,6 +1,9 @@
 ## Unreleased
 
 ## Released
+0.0.6 (Aug 9, 2021)
+* Allow overriding Custom Data Parameters
+
 0.0.5 (Aug 5, 2021)
 * Map gtm.dom event_names to PageView
 
